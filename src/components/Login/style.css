@@ -1,0 +1,9 @@
+.login_page_heading
+{
+    text-align: center;
+}
+.login_form_wrapper
+{
+    width: 45%;
+    margin: 2em auto;
+}
