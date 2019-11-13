@@ -1,9 +1,20 @@
 .login_page_heading
 {
     text-align: center;
+    margin-top: 5em;
+    margin-bottom: 10em;
 }
 .login_form_wrapper
 {
     width: 45%;
     margin: 2em auto;
+}
+.login_form_wrapper form
+{
+    border : 1px solid #bbb;
+    padding: 1.5em;
+}
+.login_form_wrapper .form_heading
+{
+    padding: 0.5em 0;
 }

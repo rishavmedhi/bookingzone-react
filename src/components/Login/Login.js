@@ -14,13 +14,12 @@ class Login extends React.Component
 
                 <div className="login_form_wrapper">
                     <form>
+                        <h4 className='form_heading'>Login</h4>
                         <div className="form-group">
-                            <label htmlFor="username">Username</label>
-                            <input id="username" type="text" className="form-control" placeholder="Enter username" />
+                            <input id="username" type="text" className="form-control" placeholder="Enter username" required/>
                         </div>
                         <div className="form-group">
-                            <label htmlFor="password">Password</label>
-                            <input id="password" type="password" className="form-control" placeholder="Enter password"/>
+                            <input id="password" type="password" className="form-control" placeholder="Enter password" required/>
                         </div>
                         <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
