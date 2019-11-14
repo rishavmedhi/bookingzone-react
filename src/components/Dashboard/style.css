@@ -2,3 +2,19 @@ nav .navbar-nav .nav-item
 {
     cursor: pointer;
 }
+.activity_wrapper .activity_select_wrapper,
+.time_selector_wrapper .time_selector
+{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+}
+.booking_submit
+{
+    text-align: center;
+}
+.confirm_booking_wrapper
+{
+    text-align: center;
+}
+
