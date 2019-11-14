@@ -74,11 +74,39 @@ class Dashboard extends React.Component
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="starttime">Start Time</label>
-                                        <input className="form-control" type="time" id="starttime" />
+                                        <select className="form-control" id="starttime">
+                                            <option>9:00 A.M.</option>
+                                            <option>10:00 A.M.</option>
+                                            <option>10:00 A.M.</option>
+                                            <option>12:00 P.M.</option>
+                                            <option>1:00 P.M.</option>
+                                            <option>2:00 P.M.</option>
+                                            <option>3:00 P.M.</option>
+                                            <option>4:00 P.M.</option>
+                                            <option>5:00 P.M.</option>
+                                            <option>6:00 P.M.</option>
+                                            <option>7:00 P.M.</option>
+                                            <option>8:00 P.M.</option>
+                                            <option>9:00 P.M.</option>
+                                        </select>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="endtime">End Time</label>
-                                        <input className="form-control" type="time" id="endtime" />
+                                        <select className="form-control" id="endtime">
+                                            <option>9:00 A.M.</option>
+                                            <option>10:00 A.M.</option>
+                                            <option>10:00 A.M.</option>
+                                            <option>12:00 P.M.</option>
+                                            <option>1:00 P.M.</option>
+                                            <option>2:00 P.M.</option>
+                                            <option>3:00 P.M.</option>
+                                            <option>4:00 P.M.</option>
+                                            <option>5:00 P.M.</option>
+                                            <option>6:00 P.M.</option>
+                                            <option>7:00 P.M.</option>
+                                            <option>8:00 P.M.</option>
+                                            <option>9:00 P.M.</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
