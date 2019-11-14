@@ -12,8 +12,8 @@ class Dashboard extends React.Component
             uid: "5dcae6e97871aaec87c56911",
             booking_date: getFormattedDate(),
             event: 'TENNIS',
-            starttime: (new Date().setHours(9,0,0,0))/1000,
-            endtime : (new Date().setHours(10,0,0,0))/1000
+            starttime: 9,
+            endtime : 10
         };
 
         this.HandleCheckChange = this.HandleCheckChange.bind(this);
@@ -33,8 +33,8 @@ class Dashboard extends React.Component
         this.setState({booking_date : booking_date});
     }
     /* for detecting change of the startime selector */
-    HandleStartTimeChange(e){
-        this.setState({starttime : e.target.value});
+    HandleStartTimeChange(starttime){
+        this.setState({starttime : starttime});
     }
     /* for detecting change of the startime selector */
     HandleEndTimeChange(e){
@@ -106,7 +106,7 @@ class Dashboard extends React.Component
 
                                     <BookingDay bookingDate={this.state.booking_date} onDateChange={this.HandleDateChange}/>
 
-                                    <StartTime onStartTimeChange={this.HandleStartTimeChange}/>
+                                    <StartTime startTime = {this.state.starttime} onStartTimeChange={this.HandleStartTimeChange}/>
 
                                     <EndTime onEndTimeChange={this.HandleEndTimeChange}/>
                                 </div>
@@ -149,26 +149,38 @@ class BookingDay extends React.Component
 }
 
 /* creates the start time selector */
-function StartTime()
+class StartTime extends React.Component
 {
-    // let time = new Date();
-    let rows = [];
-
-    for(let i=9;i<=21;i++) {
-        // let timevalue= (time.setHours(i, 0, 0, 0)/1000);
-        rows.push(
-            <TimeRow counter={i} />
-        );
+    constructor(props)
+    {
+        super(props);
+        this.HandleStartTimeChange = this.HandleStartTimeChange.bind(this);
     }
 
-    return(
-        <div className="form-group">
-            <label htmlFor="starttime">Start Time</label>
-            <select className="form-control" id="starttime" value="9">
-                {rows}
-            </select>
-        </div>
-    )
+    HandleStartTimeChange(e){
+        this.props.onStartTimeChange(e.target.value);
+    }
+
+    render() {
+        // let time = new Date();
+        let rows = [];
+
+        for(let i=9;i<=21;i++) {
+            // let timevalue= (time.setHours(i, 0, 0, 0)/1000);
+            rows.push(
+                <TimeRow counter={i} />
+            );
+        }
+
+        return(
+            <div className="form-group">
+                <label htmlFor="starttime">Start Time</label>
+                <select className="form-control" id="starttime" value={this.props.startTime} onChange={this.HandleStartTimeChange}>
+                    {rows}
+                </select>
+            </div>
+        )
+    }
 }
 
 /* creates the end time selector */
