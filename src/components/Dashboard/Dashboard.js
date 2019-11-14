@@ -29,8 +29,8 @@ class Dashboard extends React.Component
         this.setState({event : e.target.value});
     }
     /* for detecting change of the date picker */
-    HandleDateChange(e){
-        this.setState({booking_date : e.target.value});
+    HandleDateChange(booking_date){
+        this.setState({booking_date : booking_date});
     }
     /* for detecting change of the startime selector */
     HandleStartTimeChange(e){
@@ -104,11 +104,11 @@ class Dashboard extends React.Component
                                 <h4>Day and Time</h4>
                                 <div className="time_selector">
 
-                                    <BookingDay/>
+                                    <BookingDay bookingDate={this.state.booking_date} onDateChange={this.HandleDateChange}/>
 
-                                    <StartTime/>
+                                    <StartTime onStartTimeChange={this.HandleStartTimeChange}/>
 
-                                    <EndTime/>
+                                    <EndTime onEndTimeChange={this.HandleEndTimeChange}/>
                                 </div>
                             </div>
 
@@ -124,15 +124,28 @@ class Dashboard extends React.Component
     }
 }
 
-function BookingDay()
+class BookingDay extends React.Component
 {
-    let currentdate = getFormattedDate();
-    return (
-        <div className="form-group">
-            <label htmlFor="booking_day">Booking Day</label>
-            <input className="form-control" type="date" id="booking_day" value={currentdate}/>
-        </div>
-    )
+    constructor(props)
+    {
+        super(props);
+        this.HandleBookingDateChange = this.HandleBookingDateChange.bind(this);
+    }
+
+    HandleBookingDateChange(e)
+    {
+        this.props.onDateChange(e.target.value);
+    }
+
+    render()
+    {
+        return (
+            <div className="form-group">
+                <label htmlFor="booking_day">Booking Day</label>
+                <input className="form-control" type="date" id="booking_day" value={this.props.bookingDate} onChange={this.HandleBookingDateChange}/>
+            </div>
+        );
+    }
 }
 
 /* creates the start time selector */
