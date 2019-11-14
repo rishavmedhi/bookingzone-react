@@ -92,24 +92,25 @@ class Dashboard extends React.Component
                                     {/*    </select>*/}
                                     {/*</div>*/}
                                     <StartTime/>
-                                    <div className="form-group">
-                                        <label htmlFor="endtime">End Time</label>
-                                        <select className="form-control" id="endtime">
-                                            <option>9:00 A.M.</option>
-                                            <option>10:00 A.M.</option>
-                                            <option>10:00 A.M.</option>
-                                            <option>12:00 P.M.</option>
-                                            <option>1:00 P.M.</option>
-                                            <option>2:00 P.M.</option>
-                                            <option>3:00 P.M.</option>
-                                            <option>4:00 P.M.</option>
-                                            <option>5:00 P.M.</option>
-                                            <option>6:00 P.M.</option>
-                                            <option>7:00 P.M.</option>
-                                            <option>8:00 P.M.</option>
-                                            <option>9:00 P.M.</option>
-                                        </select>
-                                    </div>
+                                    {/*<div className="form-group">*/}
+                                    {/*    <label htmlFor="endtime">End Time</label>*/}
+                                    {/*    <select className="form-control" id="endtime">*/}
+                                    {/*        <option>9:00 A.M.</option>*/}
+                                    {/*        <option>10:00 A.M.</option>*/}
+                                    {/*        <option>10:00 A.M.</option>*/}
+                                    {/*        <option>12:00 P.M.</option>*/}
+                                    {/*        <option>1:00 P.M.</option>*/}
+                                    {/*        <option>2:00 P.M.</option>*/}
+                                    {/*        <option>3:00 P.M.</option>*/}
+                                    {/*        <option>4:00 P.M.</option>*/}
+                                    {/*        <option>5:00 P.M.</option>*/}
+                                    {/*        <option>6:00 P.M.</option>*/}
+                                    {/*        <option>7:00 P.M.</option>*/}
+                                    {/*        <option>8:00 P.M.</option>*/}
+                                    {/*        <option>9:00 P.M.</option>*/}
+                                    {/*    </select>*/}
+                                    {/*</div>*/}
+                                    <EndTime/>
                                 </div>
                             </div>
 
@@ -136,13 +137,14 @@ function BookingDay(props)
     )
 }
 
+/* creates the start time selector */
 function StartTime()
 {
-    let time = new Date();
+    // let time = new Date();
     let rows = [];
 
     for(let i=9;i<=21;i++) {
-        let timevalue= (time.setHours(i, 0, 0, 0)/1000);
+        // let timevalue= (time.setHours(i, 0, 0, 0)/1000);
         rows.push(
             <TimeRow counter={i} />
         );
@@ -151,7 +153,28 @@ function StartTime()
     return(
         <div className="form-group">
             <label htmlFor="starttime">Start Time</label>
-            <select className="form-control" id="starttime">
+            <select className="form-control" id="starttime" value="9">
+                {rows}
+            </select>
+        </div>
+    )
+}
+
+/* creates the end time selector */
+function EndTime()
+{
+    let rows = [];
+
+    for(let i=9;i<=21;i++) {
+        rows.push(
+            <TimeRow counter={i} />
+        );
+    }
+
+    return(
+        <div className="form-group">
+            <label htmlFor="endtime">End Time</label>
+            <select className="form-control" id="endtime" value="10">
                 {rows}
             </select>
         </div>
