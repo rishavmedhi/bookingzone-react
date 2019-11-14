@@ -73,24 +73,25 @@ class Dashboard extends React.Component
                                     {/*    <input className="form-control" type="date" id="booking_day" />*/}
                                     {/*</div>*/}
                                     <BookingDay/>
-                                    <div className="form-group">
-                                        <label htmlFor="starttime">Start Time</label>
-                                        <select className="form-control" id="starttime">
-                                            <option>9:00 A.M.</option>
-                                            <option>10:00 A.M.</option>
-                                            <option>10:00 A.M.</option>
-                                            <option>12:00 P.M.</option>
-                                            <option>1:00 P.M.</option>
-                                            <option>2:00 P.M.</option>
-                                            <option>3:00 P.M.</option>
-                                            <option>4:00 P.M.</option>
-                                            <option>5:00 P.M.</option>
-                                            <option>6:00 P.M.</option>
-                                            <option>7:00 P.M.</option>
-                                            <option>8:00 P.M.</option>
-                                            <option>9:00 P.M.</option>
-                                        </select>
-                                    </div>
+                                    {/*<div className="form-group">*/}
+                                    {/*    <label htmlFor="starttime">Start Time</label>*/}
+                                    {/*    <select className="form-control" id="starttime">*/}
+                                    {/*        <option>9:00 A.M.</option>*/}
+                                    {/*        <option>10:00 A.M.</option>*/}
+                                    {/*        <option>10:00 A.M.</option>*/}
+                                    {/*        <option>12:00 P.M.</option>*/}
+                                    {/*        <option>1:00 P.M.</option>*/}
+                                    {/*        <option>2:00 P.M.</option>*/}
+                                    {/*        <option>3:00 P.M.</option>*/}
+                                    {/*        <option>4:00 P.M.</option>*/}
+                                    {/*        <option>5:00 P.M.</option>*/}
+                                    {/*        <option>6:00 P.M.</option>*/}
+                                    {/*        <option>7:00 P.M.</option>*/}
+                                    {/*        <option>8:00 P.M.</option>*/}
+                                    {/*        <option>9:00 P.M.</option>*/}
+                                    {/*    </select>*/}
+                                    {/*</div>*/}
+                                    <StartTime/>
                                     <div className="form-group">
                                         <label htmlFor="endtime">End Time</label>
                                         <select className="form-control" id="endtime">
@@ -132,6 +133,35 @@ function BookingDay(props)
             <label htmlFor="booking_day">Booking Day</label>
             <input className="form-control" type="date" id="booking_day" value={currentdate}/>
         </div>
+    )
+}
+
+function StartTime()
+{
+    let time = new Date();
+    let rows = [];
+
+    for(let i=9;i<=21;i++) {
+        let timevalue= (time.setHours(i, 0, 0, 0)/1000);
+        rows.push(
+            <TimeRow timeValue={timevalue} counter={i} />
+        );
+    }
+
+    return(
+        <div className="form-group">
+            <label htmlFor="starttime">Start Time</label>
+            <select className="form-control" id="starttime">
+                {rows}
+            </select>
+        </div>
+    )
+}
+
+function TimeRow(props)
+{
+    return(
+        <option value={props.timeValue}>{props.counter}:00 A.M.</option>
     )
 }
 
