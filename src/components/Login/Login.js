@@ -1,5 +1,7 @@
 import React from 'react';
 import './style.css'
+import axios from 'axios';
+
 
 class Login extends React.Component
 {
@@ -25,6 +27,19 @@ class Login extends React.Component
     }
 
     handleSubmit(event) {
+        event.preventDefault();
+        let username = this.state.username;
+        let password = this.state.password;
+
+        axios.post('http://localhost:3000/login/',{
+            username : username,
+            password: password
+        }).then(function(response){
+           console.log(response);
+        }).catch(function(e){
+            console.log(e);
+        });
+
 
     }
 
