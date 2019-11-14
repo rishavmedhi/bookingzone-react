@@ -68,10 +68,11 @@ class Dashboard extends React.Component
                             <div className="time_selector_wrapper">
                                 <h4>Day and Time</h4>
                                 <div className="time_selector">
-                                    <div className="form-group">
-                                        <label htmlFor="booking_day">Booking Day</label>
-                                        <input className="form-control" type="date" id="booking_day" />
-                                    </div>
+                                    {/*<div className="form-group">*/}
+                                    {/*    <label htmlFor="booking_day">Booking Day</label>*/}
+                                    {/*    <input className="form-control" type="date" id="booking_day" />*/}
+                                    {/*</div>*/}
+                                    <BookingDay/>
                                     <div className="form-group">
                                         <label htmlFor="starttime">Start Time</label>
                                         <select className="form-control" id="starttime">
@@ -119,11 +120,37 @@ class Dashboard extends React.Component
                     </div>
                 </div>
             </div>
-
-
-
         );
     }
+}
+
+function BookingDay(props)
+{
+    let currentdate = getFormattedDate();
+    return (
+        <div className="form-group">
+            <label htmlFor="booking_day">Booking Day</label>
+            <input className="form-control" type="date" id="booking_day" value={currentdate}/>
+        </div>
+    )
+}
+
+/* utility function for converting date to required format */
+function getFormattedDate()
+{
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    today = yyyy + '-' + mm + '-' + dd;
+   return today;
 }
 
 export default Dashboard;
