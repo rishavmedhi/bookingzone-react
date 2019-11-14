@@ -144,7 +144,7 @@ function StartTime()
     for(let i=9;i<=21;i++) {
         let timevalue= (time.setHours(i, 0, 0, 0)/1000);
         rows.push(
-            <TimeRow timeValue={timevalue} counter={i} />
+            <TimeRow counter={i} />
         );
     }
 
@@ -161,7 +161,7 @@ function StartTime()
 function TimeRow(props)
 {
     return(
-        <option value={props.timeValue}>{props.counter}:00 A.M.</option>
+        <option value={props.counter}>{props.counter}:00 A.M.</option>
     )
 }
 
