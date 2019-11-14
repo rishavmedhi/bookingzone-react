@@ -6,6 +6,7 @@ import {
   Link
 } from "react-router-dom";
 import Login from './components/Login/Login';
+import Dashboard from './components/Dashboard/Dashboard'
 
 export default function App() {
   return (
@@ -31,8 +32,8 @@ export default function App() {
           {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
           <Switch>
-            <Route path="/dashboard">
-              <About />
+            <Route path="/dashboard" component={Dashboard}>
+              <Dashboard />
             </Route>
             <Route path="/users">
               <Users />
