@@ -20,19 +20,29 @@ class Dashboard extends React.Component
         this.HandleDateChange = this.HandleDateChange.bind(this);
         this.HandleStartTimeChange = this.HandleStartTimeChange.bind(this);
         this.HandleEndTimeChange = this.HandleEndTimeChange.bind(this);
+        this.HandleSubmit = this.HandleSubmit.bind(this);
     }
 
+    /* for detecting change in activity selection */
     HandleCheckChange(e)
     {
-
+        this.setState({event : e.target.value});
     }
+    /* for detecting change of the date picker */
     HandleDateChange(e){
-        
+        this.setState({booking_date : e.target.value});
     }
+    /* for detecting change of the startime selector */
     HandleStartTimeChange(e){
-
+        this.setState({starttime : e.target.value});
     }
+    /* for detecting change of the startime selector */
     HandleEndTimeChange(e){
+        this.setState({endtime : e.target.value});
+    }
+    /* Handling on submit action of the form */
+    HandleSubmit(e){
+        e.preventDefault();
 
     }
 
@@ -64,27 +74,27 @@ class Dashboard extends React.Component
                                 <h4>Activities </h4>
                                 <div className="activity_select_wrapper">
                                     <div className="form-check">
-                                        <input className="form-check-input" type="radio" name="activity" value="TENNIS" checked />
+                                        <input className="form-check-input" type="radio" name="activity" value="TENNIS" checked={this.state.event==="TENNIS"} onChange={this.HandleCheckChange}/>
                                         <label className="form-check-label">Tennis Court</label>
                                     </div>
                                     <div className="form-check">
-                                        <input className="form-check-input" type="radio" name="activity" value="SWIMMING" />
+                                        <input className="form-check-input" type="radio" name="activity" value="SWIMMING" checked={this.state.event==="SWIMMING"} onChange={this.HandleCheckChange} />
                                         <label className="form-check-label">Swimming Pool</label>
                                     </div>
                                     <div className="form-check">
-                                        <input className="form-check-input" type="radio" name="activity" value="BADMINTON" />
+                                        <input className="form-check-input" type="radio" name="activity" value="BADMINTON" checked={this.state.event==="BADMINTON"} onChange={this.HandleCheckChange} />
                                         <label className="form-check-label">Badminton</label>
                                     </div>
                                     <div className="form-check">
-                                        <input className="form-check-input" type="radio" name="activity" value="GYM" />
+                                        <input className="form-check-input" type="radio" name="activity" value="GYM" checked={this.state.event==="GYM"} onChange={this.HandleCheckChange} />
                                         <label className="form-check-label">Gym</label>
                                     </div>
                                     <div className="form-check">
-                                        <input className="form-check-input" type="radio" name="activity" value="CLUBHOUSE" />
+                                        <input className="form-check-input" type="radio" name="activity" value="CLUBHOUSE" checked={this.state.event==="CLUBHOUSE"} onChange={this.HandleCheckChange} />
                                         <label className="form-check-label">Club House</label>
                                     </div>
                                     <div className="form-check">
-                                        <input className="form-check-input" type="radio" name="activity" value="CYCLE" />
+                                        <input className="form-check-input" type="radio" name="activity" value="CYCLE" checked={this.state.event==="CYCLE"} onChange={this.HandleCheckChange}/>
                                         <label className="form-check-label">Cycle Track</label>
                                     </div>
                                 </div>
