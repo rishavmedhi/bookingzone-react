@@ -2,13 +2,38 @@ import React from 'react';
 import { Redirect } from 'react-router-dom'
 import './style.css'
 import axios from 'axios';
-import Login from "../Login/Login";
 
 class Dashboard extends React.Component
 {
     constructor(props)
     {
         super(props);
+        this.state = {
+            uid: "5dcae6e97871aaec87c56911",
+            booking_date: getFormattedDate(),
+            event: 'TENNIS',
+            starttime: (new Date().setHours(9,0,0,0))/1000,
+            endtime : (new Date().setHours(10,0,0,0))/1000
+        };
+
+        this.HandleCheckChange = this.HandleCheckChange.bind(this);
+        this.HandleDateChange = this.HandleDateChange.bind(this);
+        this.HandleStartTimeChange = this.HandleStartTimeChange.bind(this);
+        this.HandleEndTimeChange = this.HandleEndTimeChange.bind(this);
+    }
+
+    HandleCheckChange(e)
+    {
+
+    }
+    HandleDateChange(e){
+        
+    }
+    HandleStartTimeChange(e){
+
+    }
+    HandleEndTimeChange(e){
+
     }
 
     render() {
