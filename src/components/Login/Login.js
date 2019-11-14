@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom'
 import './style.css'
 import axios from 'axios';
 
@@ -10,7 +11,8 @@ class Login extends React.Component
 
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            redirect: false
         };
 
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
@@ -34,18 +36,31 @@ class Login extends React.Component
         axios.post('http://localhost:3000/login/',{
             username : username,
             password: password
-        }).then(function(response){
-           console.log(response);
+        }).then((response) => {
+           let data = response.data;
+           
+           if(data.status===1)
+           {
+               // todo : display login successful
+
+               this.setState({
+                   redirect : true
+               });
+               // return <Redirect to='/dashboard' />
+           }
         }).catch(function(e){
             console.log(e);
         });
-
-
     }
 
 
 
     render(){
+        if(this.state.redirect === true)
+        {
+            return <Redirect to='/dashboard' />
+        }
+
         return(
             <div className="container">
                 <div className="col align-self-center login_page_heading">
