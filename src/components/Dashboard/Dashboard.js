@@ -37,8 +37,8 @@ class Dashboard extends React.Component
         this.setState({starttime : starttime});
     }
     /* for detecting change of the startime selector */
-    HandleEndTimeChange(e){
-        this.setState({endtime : e.target.value});
+    HandleEndTimeChange(endtime){
+        this.setState({endtime : endtime});
     }
     /* Handling on submit action of the form */
     HandleSubmit(e){
@@ -108,7 +108,7 @@ class Dashboard extends React.Component
 
                                     <StartTime startTime = {this.state.starttime} onStartTimeChange={this.HandleStartTimeChange}/>
 
-                                    <EndTime onEndTimeChange={this.HandleEndTimeChange}/>
+                                    <EndTime endTime = {this.state.endtime} onEndTimeChange={this.HandleEndTimeChange}/>
                                 </div>
                             </div>
 
@@ -184,24 +184,39 @@ class StartTime extends React.Component
 }
 
 /* creates the end time selector */
-function EndTime()
+class EndTime extends React.Component
 {
-    let rows = [];
-
-    for(let i=9;i<=21;i++) {
-        rows.push(
-            <TimeRow counter={i} />
-        );
+    constructor(props)
+    {
+        super(props);
+        this.HandleEndTimeChange = this.HandleEndTimeChange.bind(this);
     }
 
-    return(
-        <div className="form-group">
-            <label htmlFor="endtime">End Time</label>
-            <select className="form-control" id="endtime" value="10">
-                {rows}
-            </select>
-        </div>
-    )
+    HandleEndTimeChange(e)
+    {
+        this.props.onEndTimeChange(e.target.value);
+    }
+
+
+    render(){
+
+        let rows = [];
+
+        for(let i=9;i<=21;i++) {
+            rows.push(
+                <TimeRow counter={i} />
+            );
+        }
+
+        return(
+            <div className="form-group">
+                <label htmlFor="endtime">End Time</label>
+                <select className="form-control" id="endtime" value={this.props.endTime} onChange={this.HandleEndTimeChange}>
+                    {rows}
+                </select>
+            </div>
+        );
+    }
 }
 
 function TimeRow(props)
