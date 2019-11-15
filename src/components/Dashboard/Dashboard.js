@@ -2,14 +2,16 @@ import React from 'react';
 import { Redirect } from 'react-router-dom'
 import './style.css'
 import axios from 'axios';
+import Cookies from "universal-cookie";
 
 class Dashboard extends React.Component
 {
     constructor(props)
     {
         super(props);
+        const cookie = new Cookies();
         this.state = {
-            uid: "5dcae6e97871aaec87c56911",
+            uid: cookie.get('uid'),
             booking_date: getFormattedDate(),
             event: 'TENNIS',
             starttime: 9,

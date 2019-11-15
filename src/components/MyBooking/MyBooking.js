@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom'
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import './style.css';
+import Cookies from "universal-cookie";
 
 var moment = require('moment');
 
@@ -12,8 +13,9 @@ class MyBooking extends React.Component{
     constructor(props)
     {
         super(props);
+        const cookie = new Cookies();
         this.state ={
-            uid : '5dcae6e97871aaec87c56911',
+            uid : cookie.get('uid'),
             redirectToDashboard : false,
             bookings: []
         }
