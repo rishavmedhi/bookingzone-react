@@ -18,7 +18,7 @@ class MyBooking extends React.Component{
             uid : cookie.get('uid'),
             redirectToDashboard : false,
             bookings: []
-        }
+        };
 
         this.HandleNewBookingClick = this.HandleNewBookingClick.bind(this);
         this.HandleLogoutClick = this.HandleLogoutClick.bind(this);
