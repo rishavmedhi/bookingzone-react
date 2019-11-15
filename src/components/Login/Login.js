@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom'
 import './style.css'
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 
 class Login extends React.Component
@@ -42,6 +43,10 @@ class Login extends React.Component
            if(data.status===1)
            {
                // todo : display login successful
+
+               // saving the uid to the cookie
+               const cookies = new Cookies();
+               cookies.set("uid",data.user._id,{ path: '/' });
 
                this.setState({
                    redirect : true
