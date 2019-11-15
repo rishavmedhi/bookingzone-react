@@ -1,0 +1,39 @@
+.mybooking_container .booking_wrapper
+{
+    -webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    /* background: #FFF; */
+    border: solid 1px rgba(0,0,0,0.15);
+    overflow: hidden;
+    position: relative;
+    padding: 1em;
+}
+.mybooking_container .booking_wrapper.past
+{
+    opacity: 0.6;
+}
+.booking_wrapper .event
+{
+    font-size: 20px;
+}
+.booking_wrapper .event .event_name
+{
+    font-weight: 500;
+}
+.booking_wrapper .day_wrapper
+{
+    padding: 0.5em 0;
+}
+.booking_wrapper .day_wrapper .day
+{
+    font-weight: 600;
+}
+.booking_wrapper .time_wrapper .time
+{
+    font-weight: 600;
+}
+.booking_wrapper .cancel_booking
+{
+    color: #c33;
+    font-weight: 600;
+}
