@@ -88,6 +88,7 @@ class MyBooking extends React.Component{
     }
 }
 
+/* rendering the upcoming bookings section */
 function UpcomingBooking(props)
 {
     let currenttime = Math.floor((new Date().getTime())/1000);
@@ -110,6 +111,7 @@ function UpcomingBooking(props)
     );
 }
 
+/* rendering the past bookings section */
 function PastBookings(props)
 {
     let currenttime = Math.floor((new Date().getTime())/1000);
@@ -125,12 +127,15 @@ function PastBookings(props)
         }
     }
 
-    return(
-        <div className="past_bookings">
-            <h3>Past Bookings</h3>
-            {rows}
-        </div>
-    );
+    if(rows.length>0)
+        return(
+            <div className="past_bookings">
+                <h3>Past Bookings</h3>
+                {rows}
+            </div>
+        );
+    else
+        return null;
 }
 
 function Booking(props)
