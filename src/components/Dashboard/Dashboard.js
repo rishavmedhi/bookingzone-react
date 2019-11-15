@@ -25,6 +25,7 @@ class Dashboard extends React.Component
         this.HandleEndTimeChange = this.HandleEndTimeChange.bind(this);
         this.HandleSubmit = this.HandleSubmit.bind(this);
         this.HandleMyBookingClick = this.HandleMyBookingClick.bind(this);
+        this.HandleLogoutClick = this.HandleLogoutClick.bind(this);
     }
 
     /* for detecting change in activity selection */
@@ -105,6 +106,17 @@ class Dashboard extends React.Component
 
     }
 
+    /* handling logput change */
+    HandleLogoutClick(e)
+    {
+        const cookie = new Cookies();
+        cookie.remove('uid');
+
+        this.setState({
+            uid: ""
+        })
+    }
+
     render() {
         /* rediecting to my booking page */
         if(this.state.redirectToMyBooking === true)
@@ -130,7 +142,7 @@ class Dashboard extends React.Component
                     <div className="collapse navbar-collapse justify-content-end">
                         <div className="navbar-nav">
                             <div className="nav-item nav-link" onClick={this.HandleMyBookingClick}>My Bookings</div>
-                            <div className="nav-item nav-link">Logout</div>
+                            <div className="nav-item nav-link" onClick={this.HandleLogoutClick}>Logout</div>
                         </div>
                     </div>
                 </nav>

@@ -21,6 +21,7 @@ class MyBooking extends React.Component{
         }
 
         this.HandleNewBookingClick = this.HandleNewBookingClick.bind(this);
+        this.HandleLogoutClick = this.HandleLogoutClick.bind(this);
     }
 
     HandleNewBookingClick(e)
@@ -44,6 +45,17 @@ class MyBooking extends React.Component{
                 alert('Cannot connect to server');
                 console.log(error);
             });
+    }
+
+    /* handling logput change */
+    HandleLogoutClick(e)
+    {
+        const cookie = new Cookies();
+        cookie.remove('uid');
+
+        this.setState({
+            uid: ""
+        })
     }
 
     render(){
@@ -71,7 +83,7 @@ class MyBooking extends React.Component{
                    <div className="collapse navbar-collapse justify-content-end">
                        <div className="navbar-nav">
                            <div className="nav-item nav-link" onClick={this.HandleNewBookingClick}>New Booking</div>
-                           <div className="nav-item nav-link">Logout</div>
+                           <div className="nav-item nav-link" onClick={this.HandleLogoutClick}>Logout</div>
                        </div>
                    </div>
                </nav>
