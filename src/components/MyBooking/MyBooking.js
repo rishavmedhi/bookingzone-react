@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom'
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import './style.css';
@@ -16,8 +17,18 @@ class MyBooking extends React.Component{
             redirectToDashboard : false,
             bookings: []
         }
+
+        this.HandleNewBookingClick = this.HandleNewBookingClick.bind(this);
     }
 
+    HandleNewBookingClick(e)
+    {
+        this.setState({
+            redirectToDashboard : true
+        })
+    }
+
+    /* fetching user active booking before component mounting */
     componentDidMount() {
         axios.post('http://localhost:3000/bookings/user/',{
             uid: this.state.uid
@@ -34,6 +45,11 @@ class MyBooking extends React.Component{
     }
 
     render(){
+        if(this.state.redirectToDashboard)
+            return(
+                <Redirect to='/dashboard' />
+            );
+
         return(
            <div>
                <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -45,7 +61,7 @@ class MyBooking extends React.Component{
                    </button>
                    <div className="collapse navbar-collapse justify-content-end">
                        <div className="navbar-nav">
-                           <div className="nav-item nav-link">New Booking</div>
+                           <div className="nav-item nav-link" onClick={this.HandleNewBookingClick}>New Booking</div>
                            <div className="nav-item nav-link">Logout</div>
                        </div>
                    </div>
