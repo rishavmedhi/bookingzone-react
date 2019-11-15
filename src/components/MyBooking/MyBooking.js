@@ -1,9 +1,30 @@
 import React from 'react';
+import axios from 'axios';
 
 class MyBooking extends React.Component{
     constructor(props)
     {
         super(props);
+        this.state ={
+            uid : '5dcae6e97871aaec87c56911',
+            redirectToDashboard : false,
+            bookings: []
+        }
+    }
+
+    componentDidMount() {
+        axios.post('http://localhost:3000/bookings/user/',{
+            uid: this.state.uid
+        })
+            .then((response) => {
+                // handle success
+                this.setState({bookings: response.data.bookings});
+                console.log(response);
+            })
+            .catch(function (error) {
+                alert('Cannot connect to server');
+                console.log(error);
+            });
     }
 
     render(){
@@ -25,7 +46,7 @@ class MyBooking extends React.Component{
                </nav>
 
                <div className="mybooking_container container">
-                
+
                </div>
            </div>
 
