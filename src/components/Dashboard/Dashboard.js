@@ -46,26 +46,29 @@ class Dashboard extends React.Component
         /* preparing the data for ajax call */
         /* validation if all is correct */
         let starttime = this.state.starttime;
-        let endtime = this.state.starttime;
-        let currenttime = new Date().getTime();
+        let endtime = this.state.endtime;
+        let currenttime = Math.floor((new Date().getTime())/1000);
         if(starttime>endtime)
         {
             alert('The start time is after end time. Please select a proper start time');
             return;
         }
-        // todo: calculate period of booking
-        
+        if(starttime === endtime)
+        {
+            alert('Start time cannot be same with end time. Please select a proper start and end time');
+        }
+        let period = (endtime - starttime)+" hrs";
+
         let booking_date = new Date(this.state.booking_date);
         let starttime_ts = (booking_date.setHours(starttime,0,0,0))/1000;
         let endtime_ts = (booking_date.setHours(endtime,0,0,0))/1000;
+
         /* checking if booking is not for a old day */
         if(currenttime>starttime_ts || currenttime>endtime_ts)
         {
             alert('Please select day as today or some upcoming day');
             return;
         }
-
-
         let uid = this.state.uid;
         let event = this.state.event;
 
@@ -74,22 +77,17 @@ class Dashboard extends React.Component
             uid : uid,
             starttime: starttime_ts,
             endtime: endtime_ts,
-            event: event
+            event: event,
+            period: period
         }).then((response) => {
             let data = response.data;
-
             if(data.status===1)
             {
-                // todo : display booking successful
-
-                // this.setState({
-                //     redirect : true
-                // });
-                // return <Redirect to='/dashboard' />
+                alert(data.msg);
             }
             if (data.status===0)
             {
-                // todo : display error messages
+                alert(data.msg);
             }
         }).catch(function(e){
             console.log(e);
@@ -120,7 +118,7 @@ class Dashboard extends React.Component
                     </div>
 
                     <div className="booking_wrapper">
-                        <form>
+                        <form onSubmit={this.HandleSubmit}>
                             <div className="activity_wrapper">
                                 <h4>Activities </h4>
                                 <div className="activity_select_wrapper">
