@@ -43,6 +43,57 @@ class Dashboard extends React.Component
     /* Handling on submit action of the form */
     HandleSubmit(e){
         e.preventDefault();
+        /* preparing the data for ajax call */
+        /* validation if all is correct */
+        let starttime = this.state.starttime;
+        let endtime = this.state.starttime;
+        let currenttime = new Date().getTime();
+        if(starttime>endtime)
+        {
+            alert('The start time is after end time. Please select a proper start time');
+            return;
+        }
+        // todo: calculate period of booking
+        
+        let booking_date = new Date(this.state.booking_date);
+        let starttime_ts = (booking_date.setHours(starttime,0,0,0))/1000;
+        let endtime_ts = (booking_date.setHours(endtime,0,0,0))/1000;
+        /* checking if booking is not for a old day */
+        if(currenttime>starttime_ts || currenttime>endtime_ts)
+        {
+            alert('Please select day as today or some upcoming day');
+            return;
+        }
+
+
+        let uid = this.state.uid;
+        let event = this.state.event;
+
+        /* Making API call for creating new booking */
+        axios.post('http://localhost:3000/bookings/new/',{
+            uid : uid,
+            starttime: starttime_ts,
+            endtime: endtime_ts,
+            event: event
+        }).then((response) => {
+            let data = response.data;
+
+            if(data.status===1)
+            {
+                // todo : display booking successful
+
+                // this.setState({
+                //     redirect : true
+                // });
+                // return <Redirect to='/dashboard' />
+            }
+            if (data.status===0)
+            {
+                // todo : display error messages
+            }
+        }).catch(function(e){
+            console.log(e);
+        });
 
     }
 
