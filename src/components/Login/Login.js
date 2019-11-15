@@ -65,6 +65,12 @@ class Login extends React.Component
         {
             return <Redirect to='/dashboard' />
         }
+        /* checking cookie setting redirect to dashboard if cookie is set */
+        let cookie = new Cookies();
+        if(typeof cookie.get("uid")!=="undefined" && cookie.get("uid")!=="")
+        {
+            return <Redirect to='/dashboard' />
+        }
 
         return(
             <div className="container">
