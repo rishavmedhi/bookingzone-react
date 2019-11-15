@@ -1,7 +1,9 @@
 import React from 'react';
 import axios from 'axios';
+import './style.css';
 
-import './style.css'
+var moment = require('moment');
+
 
 class MyBooking extends React.Component{
     constructor(props)
@@ -93,9 +95,10 @@ function UpcomingBooking(props)
     {
         let booking = props.bookings[i];
         console.log(booking);
+        console.log(booking.starttime);
         if(booking.starttime>currenttime)
         {
-            rows.push(<Booking past="" booking_id={booking._id} event={booking.event} day={new Date(booking.starttime).toDateString()} starttime={new Date(booking.starttime).toLocaleTimeString()} endtime={new Date(booking.endtime).toTimeString()}/>)
+            rows.push(<Booking past="" booking_id={booking._id} event={booking.event} day={moment.unix(parseInt(booking.starttime)).format('Do MMM YYYY')} starttime={moment.unix(parseInt(booking.starttime)).format('hh:mm A')} endtime={moment.unix(parseInt(booking.endtime)).format('hh:mm A')}/>)
         }
     }
     return(
