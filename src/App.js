@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Login from './components/Login/Login';
 import Dashboard from './components/Dashboard/Dashboard'
+import MyBooking from "./components/MyBooking/MyBooking";
 
 export default function App() {
   return (
@@ -32,8 +33,11 @@ export default function App() {
           {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
           <Switch>
-            <Route path="/dashboard" component={Dashboard}>
+            <Route exact path="/dashboard" component={Dashboard}>
               <Dashboard />
+            </Route>
+            <Route path="/dashboard/my-booking" component={MyBooking}>
+              <MyBooking />
             </Route>
             <Route path="/users">
               <Users />

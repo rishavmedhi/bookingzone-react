@@ -13,7 +13,8 @@ class Dashboard extends React.Component
             booking_date: getFormattedDate(),
             event: 'TENNIS',
             starttime: 9,
-            endtime : 10
+            endtime : 10,
+            redirectToMyBooking : false
         };
 
         this.HandleCheckChange = this.HandleCheckChange.bind(this);
@@ -21,6 +22,7 @@ class Dashboard extends React.Component
         this.HandleStartTimeChange = this.HandleStartTimeChange.bind(this);
         this.HandleEndTimeChange = this.HandleEndTimeChange.bind(this);
         this.HandleSubmit = this.HandleSubmit.bind(this);
+        this.HandleMyBookingClick = this.HandleMyBookingClick.bind(this);
     }
 
     /* for detecting change in activity selection */
@@ -39,6 +41,12 @@ class Dashboard extends React.Component
     /* for detecting change of the startime selector */
     HandleEndTimeChange(endtime){
         this.setState({endtime : endtime});
+    }
+    /* handling click of My Booking button */
+    HandleMyBookingClick(e){
+        this.setState({
+            redirectToMyBooking : true
+        });
     }
     /* Handling on submit action of the form */
     HandleSubmit(e){
@@ -96,6 +104,11 @@ class Dashboard extends React.Component
     }
 
     render() {
+        /* rediecting to my booking page */
+        if(this.state.redirectToMyBooking === true)
+        {
+            return <Redirect to='/dashboard/my-booking' />
+        }
         return(
             <div>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -107,7 +120,7 @@ class Dashboard extends React.Component
                     </button>
                     <div className="collapse navbar-collapse justify-content-end">
                         <div className="navbar-nav">
-                            <div className="nav-item nav-link">My Bookings</div>
+                            <div className="nav-item nav-link" onClick={this.HandleMyBookingClick}>My Bookings</div>
                             <div className="nav-item nav-link">Logout</div>
                         </div>
                     </div>
