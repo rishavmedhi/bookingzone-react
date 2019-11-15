@@ -50,37 +50,9 @@ class MyBooking extends React.Component{
                </nav>
 
                <div className="mybooking_container container">
-                    {/*<div className="upcoming_bookings_wrapper">*/}
-                    {/*    <h3>Upcoming Bookings</h3>*/}
-                    {/*    <div class="booking_wrapper" data-booking-id="1234">*/}
-                    {/*        <div className="event">Event : <span className="event_name">TENNIS</span></div>*/}
-                    {/*        <div className="day_wrapper">Day : <span className="day">16th November 2019 </span></div>*/}
-                    {/*        <div className="time_wrapper">Time : <span className="time"><span className="starttime">9:00 A.M.</span> To <span className="endtime">10:00 A.M.</span></span></div>*/}
-                    {/*        <div className="cancel_booking float-right">*/}
-                    {/*            x Cancel Booking*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-                    {/*    <div className="booking_wrapper" data-booking-id="1234">*/}
-                    {/*        <div className="event">Event : <span className="event_name">TENNIS</span></div>*/}
-                    {/*        <div className="day_wrapper">Day : <span className="day">16th November 2019 </span></div>*/}
-                    {/*        <div className="time_wrapper">Time : <span className="time"><span className="starttime">9:00 A.M.</span> To <span*/}
-                    {/*            className="endtime">10:00 A.M.</span></span></div>*/}
-                    {/*        <div className="cancel_booking float-right">*/}
-                    {/*            x Cancel Booking*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
+
                     <UpcomingBooking bookings={this.state.bookings}/>
 
-                   {/*<div className="past_bookings">*/}
-                   {/*    <h3>Past Bookings</h3>*/}
-                   {/*    <div className="booking_wrapper past" data-booking-id="1234">*/}
-                   {/*        <div className="event">Event : <span className="event_name">TENNIS</span></div>*/}
-                   {/*        <div className="day_wrapper">Day : <span className="day">16th November 2019 </span></div>*/}
-                   {/*        <div className="time_wrapper">Time : <span className="time"><span className="starttime">9:00 A.M.</span> To <span*/}
-                   {/*            className="endtime">10:00 A.M.</span></span></div>*/}
-                   {/*    </div>*/}
-                   {/*</div>*/}
                    <PastBookings bookings={this.state.bookings}/>
                </div>
            </div>
@@ -96,19 +68,25 @@ function UpcomingBooking(props)
     for(let i=0;i<props.bookings.length;i++)
     {
         let booking = props.bookings[i];
-        console.log(booking);
-        console.log(booking.starttime);
-        if(booking.starttime>currenttime)
+        if(booking.starttime>currenttime || (booking.starttime<=currenttime && booking.endtime>currenttime))
         {
             rows.push(<Booking past="" booking_id={booking._id} event={booking.event} day={moment.unix(parseInt(booking.starttime)).format('Do MMM YYYY')} starttime={moment.unix(parseInt(booking.starttime)).format('hh:mm A')} endtime={moment.unix(parseInt(booking.endtime)).format('hh:mm A')}/>)
         }
     }
-    return(
-        <div className="upcoming_bookings_wrapper">
-            <h3>Upcoming Bookings</h3>
-            {rows}
-        </div>
-    );
+    if(rows.length>0)
+        return(
+            <div className="upcoming_bookings_wrapper">
+                <h3>Upcoming Bookings</h3>
+                {rows}
+            </div>
+        );
+    else
+        return(
+            <div className="empty_bookings">
+                No Bookings Found!<br />
+                Go to New Bookings and make your first Booking!
+            </div>
+        );
 }
 
 /* rendering the past bookings section */
@@ -119,8 +97,6 @@ function PastBookings(props)
     for(let i=0;i<props.bookings.length;i++)
     {
         let booking = props.bookings[i];
-        console.log(booking);
-        console.log(booking.starttime);
         if(booking.starttime<currenttime)
         {
             rows.push(<Booking past="past" booking_id={booking._id} event={booking.event} day={moment.unix(parseInt(booking.starttime)).format('Do MMM YYYY')} starttime={moment.unix(parseInt(booking.starttime)).format('hh:mm A')} endtime={moment.unix(parseInt(booking.endtime)).format('hh:mm A')}/>)
