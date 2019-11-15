@@ -111,6 +111,13 @@ class Dashboard extends React.Component
         {
             return <Redirect to='/dashboard/my-booking' />
         }
+        /* redirecting to login if uid is not present */
+        if(typeof this.state.uid=== "undefined" || this.state.uid=== "")
+        {
+            return(
+                <Redirect to='/login' />
+            );
+        }
         return(
             <div>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">

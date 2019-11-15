@@ -52,6 +52,13 @@ class MyBooking extends React.Component{
                 <Redirect to='/dashboard' />
             );
 
+        if(typeof this.state.uid=== "undefined" || this.state.uid=== "")
+        {
+            return(
+                <Redirect to='/login' />
+            );
+        }
+
         return(
            <div>
                <nav className="navbar navbar-expand-lg navbar-light bg-light">
