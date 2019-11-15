@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import './style.css';
 
 var moment = require('moment');
@@ -90,6 +92,9 @@ function UpcomingBooking(props)
 }
 
 /* rendering the past bookings section */
+/**
+ * @return {null}
+ */
 function PastBookings(props)
 {
     let currenttime = Math.floor((new Date().getTime())/1000);
@@ -123,25 +128,52 @@ function Booking(props)
             <div className="time_wrapper">Time : <span className="time"><span className="starttime">{props.starttime}</span> To <span
                 className="endtime">{props.endtime}</span></span>
             </div>
-            {CancelRequired(props.past)}
+            {CancelRequired(props.past,props.booking_id)}
         </div>
     );
 }
 
-function CancelBooking(props)
+class CancelBooking extends React.Component
 {
-    return(
-        <div className="cancel_booking float-right">
+    constructor(props)
+    {
+        super(props);
+        this.HandleCancelClick = this.HandleCancelClick.bind(this);
+    }
+
+    HandleCancelClick(e)
+    {
+        confirmAlert({
+            title: 'Confirm to submit',
+            message: 'Are you sure to do this.',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => alert('Click Yes')
+                },
+                {
+                    label: 'No',
+                    onClick: () => alert('Click No')
+                }
+            ]
+        });
+    }
+
+
+    render()
+    {
+        return(
+        <div className="cancel_booking float-right" onClick={this.HandleCancelClick}>
             x Cancel Booking
         </div>
-    )
+    )}
 }
 
-function CancelRequired(isPast)
+function CancelRequired(isPast,booking_id)
 {
     if(!isPast) {
         return (
-            <CancelBooking/>
+            <CancelBooking booking_id={booking_id}/>
         )
     }
 }
