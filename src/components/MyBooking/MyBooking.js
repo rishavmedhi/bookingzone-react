@@ -144,16 +144,32 @@ class CancelBooking extends React.Component
     HandleCancelClick(e)
     {
         confirmAlert({
-            title: 'Confirm to submit',
-            message: 'Are you sure to do this.',
+            title: 'Confirm to cancel booking',
+            message: 'Are you sure to do this?',
             buttons: [
                 {
                     label: 'Yes',
-                    onClick: () => alert('Click Yes')
+                    onClick: () => {
+                        console.log(this.props.booking_id);
+                        axios.post('http://localhost:3000/bookings/cancel/',{
+                            'booking_id':this.props.booking_id
+                        }).then((response) => {
+                            let data = response.data;
+                            if(data.status===1)
+                            {
+                                alert(data.msg);
+                            }
+                            if (data.status===0)
+                            {
+                                alert(data.msg);
+                            }
+                        }).catch(function(e){
+                            console.log(e);
+                        });
+                    }
                 },
                 {
                     label: 'No',
-                    onClick: () => alert('Click No')
                 }
             ]
         });
