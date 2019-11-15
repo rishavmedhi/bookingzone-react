@@ -158,6 +158,8 @@ class CancelBooking extends React.Component
                             if(data.status===1)
                             {
                                 alert(data.msg);
+                                //todo : find a more effeient way to refresh page
+                                window.location.reload();
                             }
                             if (data.status===0)
                             {
