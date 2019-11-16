@@ -29,6 +29,26 @@ nav .navbar-nav .nav-item
     flex-flow: row;
     justify-content: space-around;
 }
+.activity_select_wrapper  label
+{
+    cursor: pointer;
+    padding-left: 0.5rem;
+    transition: 0.1s;
+}
+.activity_select_wrapper  .form-check:hover
+{
+    font-weight: 500;
+}
+.activity_select_wrapper  .form-check .form-check-input:hover
+{
+    background-color: #3c88fd;
+    opacity: 0.1;
+}
+.activity_select_wrapper  input:checked ~label
+{
+    font-weight: 500;
+}
+
 .booking_submit
 {
     text-align: center;
