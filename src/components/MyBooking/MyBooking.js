@@ -88,18 +88,30 @@ class MyBooking extends React.Component{
                    </div>
                </nav>
 
-               <div className="mybooking_container container">
 
-                    <UpcomingBooking bookings={this.state.bookings}/>
+
+               {
+                   this.state.bookings.length?
+                   <div className="mybooking_container container">
+                   <UpcomingBooking bookings={this.state.bookings}/>,
 
                    <PastBookings bookings={this.state.bookings}/>
-               </div>
+                   </div> :
+                   <div className="empty_bookings">
+                       No Bookings Found!<br />
+                       Go to New Bookings and make your first Booking!
+                   </div>
+               }
+
            </div>
         )
     }
 }
 
 /* rendering the upcoming bookings section */
+/**
+ * @return {null}
+ */
 function UpcomingBooking(props)
 {
     let currenttime = Math.floor((new Date().getTime())/1000);
@@ -120,12 +132,7 @@ function UpcomingBooking(props)
             </div>
         );
     else
-        return(
-            <div className="empty_bookings">
-                No Bookings Found!<br />
-                Go to New Bookings and make your first Booking!
-            </div>
-        );
+        return null;
 }
 
 /* rendering the past bookings section */
