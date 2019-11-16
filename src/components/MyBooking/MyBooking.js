@@ -5,6 +5,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import './style.css';
 import Cookies from "universal-cookie";
+import 'izitoast/dist/css/iziToast.min.css';
 
 var moment = require('moment');
 

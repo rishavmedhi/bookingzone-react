@@ -3,6 +3,8 @@ import { Redirect } from 'react-router-dom'
 import './style.css'
 import axios from 'axios';
 import Cookies from "universal-cookie";
+import iziToast from "izitoast";
+import 'izitoast/dist/css/iziToast.min.css';
 
 class Dashboard extends React.Component
 {
@@ -77,7 +79,11 @@ class Dashboard extends React.Component
         /* checking if booking is not for a old day */
         if(currenttime>starttime_ts || currenttime>endtime_ts)
         {
-            alert('Please select day as today or some upcoming day');
+            // alert('Please select day as today or some upcoming day');
+
+            iziToast.show({
+                message: 'Please select day as today or some upcoming day'
+            });
             return;
         }
         let uid = this.state.uid;
@@ -94,11 +100,17 @@ class Dashboard extends React.Component
             let data = response.data;
             if(data.status===1)
             {
-                alert(data.msg);
+                // alert(data.msg);
+                iziToast.show({
+                    message: data.msg
+                });
             }
             if (data.status===0)
             {
-                alert(data.msg);
+                // alert(data.msg);
+                iziToast.show({
+                    message: data.msg
+                });
             }
         }).catch(function(e){
             console.log(e);
@@ -244,13 +256,14 @@ class StartTime extends React.Component
     }
 
     render() {
-        // let time = new Date();
         let rows = [];
+        let time = new Date().getHours();
+
 
         for(let i=9;i<=21;i++) {
             // let timevalue= (time.setHours(i, 0, 0, 0)/1000);
             rows.push(
-                <TimeRow counter={i} />
+                <TimeRow counter={i} am_pm={i>=12?'P.M.':'A.M.'}/>
             );
         }
 
@@ -284,9 +297,9 @@ class EndTime extends React.Component
 
         let rows = [];
 
-        for(let i=9;i<=21;i++) {
+        for(let i=10;i<=22;i++) {
             rows.push(
-                <TimeRow counter={i} />
+                <TimeRow counter={i} am_pm={i>=12?'P.M.':'A.M.'}/>
             );
         }
 
@@ -304,7 +317,7 @@ class EndTime extends React.Component
 function TimeRow(props)
 {
     return(
-        <option value={props.counter}>{props.counter}:00 A.M.</option>
+        <option value={props.counter} key={props.counter}>{props.counter}:00 {props.am_pm}</option>
     )
 }
 
@@ -312,6 +325,10 @@ function TimeRow(props)
 function getFormattedDate()
 {
     var today = new Date();
+    if(today.getHours()>22)
+    {
+        today.setDate(today.getDate()+1);
+    }
     var dd = today.getDate();
     var mm = today.getMonth() + 1; //January is 0!
 
