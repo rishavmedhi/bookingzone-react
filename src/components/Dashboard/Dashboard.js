@@ -147,9 +147,8 @@ class Dashboard extends React.Component
                     </div>
                 </nav>
                 <div className="dashboard_container container">
-                    <div className="col align-self-center justify-content-center">
-                        <h3>What would you like to book today?</h3>
-                    </div>
+
+                    <h3 className="intro_msg">What would you like to book today?</h3>
 
                     <div className="booking_wrapper">
                         <form onSubmit={this.HandleSubmit}>
@@ -157,28 +156,28 @@ class Dashboard extends React.Component
                                 <h4>Activities </h4>
                                 <div className="activity_select_wrapper">
                                     <div className="form-check">
-                                        <input className="form-check-input" type="radio" name="activity" value="TENNIS" checked={this.state.event==="TENNIS"} onChange={this.HandleCheckChange}/>
-                                        <label className="form-check-label">Tennis Court</label>
+                                        <input className="form-check-input" type="radio" name="activity" value="TENNIS" checked={this.state.event==="TENNIS"} onChange={this.HandleCheckChange} id="activity1"/>
+                                        <label className="form-check-label" htmlFor="activity1">Tennis Court</label>
                                     </div>
                                     <div className="form-check">
-                                        <input className="form-check-input" type="radio" name="activity" value="SWIMMING" checked={this.state.event==="SWIMMING"} onChange={this.HandleCheckChange} />
-                                        <label className="form-check-label">Swimming Pool</label>
+                                        <input className="form-check-input" type="radio" name="activity" value="SWIMMING" checked={this.state.event==="SWIMMING"} onChange={this.HandleCheckChange} id="activity2"/>
+                                        <label className="form-check-label" htmlFor="activity2">Swimming Pool</label>
                                     </div>
                                     <div className="form-check">
-                                        <input className="form-check-input" type="radio" name="activity" value="BADMINTON" checked={this.state.event==="BADMINTON"} onChange={this.HandleCheckChange} />
-                                        <label className="form-check-label">Badminton</label>
+                                        <input className="form-check-input" type="radio" name="activity" value="BADMINTON" checked={this.state.event==="BADMINTON"} onChange={this.HandleCheckChange} id="activity3"/>
+                                        <label className="form-check-label" htmlFor="activity3">Badminton</label>
                                     </div>
                                     <div className="form-check">
-                                        <input className="form-check-input" type="radio" name="activity" value="GYM" checked={this.state.event==="GYM"} onChange={this.HandleCheckChange} />
-                                        <label className="form-check-label">Gym</label>
+                                        <input className="form-check-input" type="radio" name="activity" value="GYM" checked={this.state.event==="GYM"} onChange={this.HandleCheckChange} id="activity4"/>
+                                        <label className="form-check-label" htmlFor="activity4">Gym</label>
                                     </div>
                                     <div className="form-check">
-                                        <input className="form-check-input" type="radio" name="activity" value="CLUBHOUSE" checked={this.state.event==="CLUBHOUSE"} onChange={this.HandleCheckChange} />
-                                        <label className="form-check-label">Club House</label>
+                                        <input className="form-check-input" type="radio" name="activity" value="CLUBHOUSE" checked={this.state.event==="CLUBHOUSE"} onChange={this.HandleCheckChange} id="activity5"/>
+                                        <label className="form-check-label" htmlFor="activity5">Club House</label>
                                     </div>
                                     <div className="form-check">
-                                        <input className="form-check-input" type="radio" name="activity" value="CYCLE" checked={this.state.event==="CYCLE"} onChange={this.HandleCheckChange}/>
-                                        <label className="form-check-label">Cycle Track</label>
+                                        <input className="form-check-input" type="radio" name="activity" value="CYCLE" checked={this.state.event==="CYCLE"} onChange={this.HandleCheckChange} id="activity6"/>
+                                        <label className="form-check-label" htmlFor="activity6">Cycle Track</label>
                                     </div>
                                 </div>
                             </div>

@@ -2,6 +2,26 @@ nav .navbar-nav .nav-item
 {
     cursor: pointer;
 }
+.dashboard_container
+{
+    margin: 4em 0;
+}
+.dashboard_container .intro_msg
+{
+    padding-bottom: 1em;
+}
+.activity_wrapper h4
+{
+    padding: 0.5em 0;
+}
+.time_selector_wrapper
+{
+    padding: 1em 0;
+}
+.time_selector_wrapper h4
+{
+    padding: 0.5em 0;
+}
 .activity_wrapper .activity_select_wrapper,
 .time_selector_wrapper .time_selector
 {
