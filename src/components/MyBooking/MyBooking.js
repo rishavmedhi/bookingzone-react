@@ -93,7 +93,7 @@ class MyBooking extends React.Component{
                {
                    this.state.bookings.length?
                    <div className="mybooking_container container">
-                   <UpcomingBooking bookings={this.state.bookings}/>,
+                   <UpcomingBooking bookings={this.state.bookings}/>
 
                    <PastBookings bookings={this.state.bookings}/>
                    </div> :

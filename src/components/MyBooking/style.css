@@ -12,6 +12,14 @@
     position: relative;
     padding: 1em;
 }
+.mybooking_container .upcoming_bookings_wrapper h3
+{
+    padding: 0.5em 0;
+}
+.mybooking_container .past_bookings h3
+{
+    padding: 2em 0 0.5em 0;
+}
 .mybooking_container .booking_wrapper.past
 {
     opacity: 0.6;
