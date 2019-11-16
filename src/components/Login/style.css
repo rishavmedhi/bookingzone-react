@@ -18,6 +18,12 @@
 {
     padding: 0.5em 0;
 }
+.iziToast .iziToast-message
+{
+    font-weight: 400!important;
+    opacity: 1;
+    color: #fff !important;
+}
 
 @media only screen and (max-width: 500px) {
     .login_form_wrapper

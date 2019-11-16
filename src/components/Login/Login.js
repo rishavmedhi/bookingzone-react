@@ -3,6 +3,8 @@ import { Redirect } from 'react-router-dom'
 import './style.css'
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import '../../utilities/utilities'
+import {show_toast} from "../../utilities/utilities";
 
 
 class Login extends React.Component
@@ -42,8 +44,6 @@ class Login extends React.Component
 
            if(data.status===1)
            {
-               // todo : display login successful
-
                // saving the uid to the cookie
                const cookies = new Cookies();
                cookies.set("uid",data.user._id,{ path: '/' });
@@ -51,8 +51,9 @@ class Login extends React.Component
                this.setState({
                    redirect : true
                });
-               // return <Redirect to='/dashboard' />
            }
+           else
+                show_toast(data.msg,"","fail");
         }).catch(function(e){
             console.log(e);
         });

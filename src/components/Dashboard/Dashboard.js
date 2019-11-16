@@ -5,6 +5,7 @@ import axios from 'axios';
 import Cookies from "universal-cookie";
 import iziToast from "izitoast";
 import 'izitoast/dist/css/iziToast.min.css';
+import {show_toast} from "../../utilities/utilities";
 
 class Dashboard extends React.Component
 {
@@ -346,28 +347,6 @@ function getFormattedDate()
     }
     today = yyyy + '-' + mm + '-' + dd;
    return today;
-}
-
-/* showing easy toast function */
-function show_toast(msg,title,type)
-{
-    let backgroundColor,color;
-    if(type==="fail")
-    {
-        backgroundColor= 'red';
-        color= 'white';
-    }
-    if(type==="success")
-    {
-        backgroundColor= 'green';
-    }
-    iziToast.show({
-       title: title,
-        message: msg,
-        backgroundColor: backgroundColor,
-        position: "topCenter",
-        color: color
-    });
 }
 
 export default Dashboard;

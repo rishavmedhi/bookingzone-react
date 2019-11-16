@@ -6,7 +6,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import './style.css';
 import Cookies from "universal-cookie";
 import 'izitoast/dist/css/iziToast.min.css';
-import iziToast from "izitoast";
+import {show_toast} from "../../utilities/utilities";
 
 var moment = require('moment');
 
@@ -238,28 +238,6 @@ function CancelRequired(isPast,booking_id)
             <CancelBooking booking_id={booking_id}/>
         )
     }
-}
-
-/* showing easy toast function */
-function show_toast(msg,title,type)
-{
-    let backgroundColor,color;
-    if(type==="fail")
-    {
-        backgroundColor= 'red';
-        color= 'white';
-    }
-    if(type==="success")
-    {
-        backgroundColor= 'green';
-    }
-    iziToast.show({
-        title: title,
-        message: msg,
-        backgroundColor: backgroundColor,
-        position: "topCenter",
-        color: color
-    });
 }
 
 export default MyBooking;
