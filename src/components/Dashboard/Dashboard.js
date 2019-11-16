@@ -64,13 +64,13 @@ class Dashboard extends React.Component
         if(starttime>endtime)
         {
             // alert('The start time is after end time. Please select a proper start time');
-            show_toast('The start time is after end time. Please select a proper start time','','fail')
+            show_toast('The start time is after end time. Please select a proper start time','','fail');
             return;
         }
         if(starttime === endtime)
         {
             // alert('Start time cannot be same with end time. Please select a proper start and end time');
-            show_toast('Start time cannot be same with end time. Please select a proper start and end time','','fail')
+            show_toast('Start time cannot be same with end time. Please select a proper start and end time','','fail');
         }
         let period = (endtime - starttime)+" hrs";
 

@@ -54,3 +54,11 @@ nav .navbar-nav .nav-item
     padding: 2em 0;
 }
 
+@media only screen and (max-width: 500px) {
+    .activity_wrapper .activity_select_wrapper,
+    .time_selector_wrapper .time_selector
+    {
+       flex-direction: column;
+    }
+}
+
