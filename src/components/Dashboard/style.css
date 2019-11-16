@@ -39,22 +39,18 @@ nav .navbar-nav .nav-item
 {
     font-weight: 500;
 }
-.activity_select_wrapper  .form-check .form-check-input:hover
-{
-    background-color: #3c88fd;
-    opacity: 0.1;
-}
 .activity_select_wrapper  input:checked ~label
 {
     font-weight: 500;
 }
-
 .booking_submit
 {
     text-align: center;
+    font-size: 18px;
 }
 .confirm_booking_wrapper
 {
     text-align: center;
+    padding: 2em 0;
 }
 
