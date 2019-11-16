@@ -1,6 +1,9 @@
 /* showing easy toast function */
 import iziToast from "izitoast";
 
+// const base_url = "https://bookingzone.herokuapp.com/api/";
+export const base_url = "http://localhost:3000/api/";
+
 export function show_toast(msg, title, type)
 {
     let backgroundColor,color;

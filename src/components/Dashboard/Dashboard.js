@@ -5,7 +5,7 @@ import axios from 'axios';
 import Cookies from "universal-cookie";
 import iziToast from "izitoast";
 import 'izitoast/dist/css/iziToast.min.css';
-import {show_toast} from "../../utilities/utilities";
+import {base_url, show_toast} from "../../utilities/utilities";
 
 class Dashboard extends React.Component
 {
@@ -94,7 +94,7 @@ class Dashboard extends React.Component
         let event = this.state.event;
 
         /* Making API call for creating new booking */
-        axios.post('http://localhost:3000/bookings/new/',{
+        axios.post(base_url+'bookings/new/',{
             uid : uid,
             starttime: starttime_ts,
             endtime: endtime_ts,

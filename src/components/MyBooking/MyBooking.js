@@ -6,7 +6,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import './style.css';
 import Cookies from "universal-cookie";
 import 'izitoast/dist/css/iziToast.min.css';
-import {show_toast} from "../../utilities/utilities";
+import {base_url, show_toast} from "../../utilities/utilities";
 
 var moment = require('moment');
 
@@ -35,7 +35,7 @@ class MyBooking extends React.Component{
 
     /* fetching user active booking before component mounting */
     componentDidMount() {
-        axios.post('http://localhost:3000/bookings/user/',{
+        axios.post(base_url+'bookings/user/',{
             uid: this.state.uid
         })
             .then((response) => {
@@ -194,7 +194,7 @@ class CancelBooking extends React.Component
                 {
                     label: 'Yes',
                     onClick: () => {
-                        axios.post('http://localhost:3000/bookings/cancel/',{
+                        axios.post(base_url+'bookings/cancel/',{
                             'booking_id':this.props.booking_id
                         }).then((response) => {
                             let data = response.data;

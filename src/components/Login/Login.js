@@ -3,8 +3,7 @@ import { Redirect } from 'react-router-dom'
 import './style.css'
 import axios from 'axios';
 import Cookies from 'universal-cookie';
-import '../../utilities/utilities'
-import {show_toast} from "../../utilities/utilities";
+import {base_url, show_toast} from "../../utilities/utilities";
 
 
 class Login extends React.Component
@@ -36,7 +35,7 @@ class Login extends React.Component
         let username = this.state.username;
         let password = this.state.password;
 
-        axios.post('http://localhost:3000/login/',{
+        axios.post(base_url+'login/',{
             username : username,
             password: password
         }).then((response) => {
@@ -84,10 +83,10 @@ class Login extends React.Component
                     <form onSubmit={this.handleSubmit}>
                         <h4 className='form_heading'>Login</h4>
                         <div className="form-group">
-                            <input id="username" type="text" className="form-control" placeholder="Enter username" required onChange={this.handleUsernameChange}/>
+                            <input id="username" type="text" className="form-control" placeholder="Enter username" required autoComplete="off" onChange={this.handleUsernameChange}/>
                         </div>
                         <div className="form-group">
-                            <input id="password" type="password" className="form-control" placeholder="Enter password" required onChange={this.handlePasswordChange}/>
+                            <input id="password" type="password" className="form-control" placeholder="Enter password" required autoComplete="off" onChange={this.handlePasswordChange}/>
                         </div>
                         <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
