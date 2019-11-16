@@ -156,7 +156,7 @@ class Dashboard extends React.Component
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div className="collapse navbar-collapse justify-content-end">
+                    <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                         <div className="navbar-nav">
                             <div className="nav-item nav-link" onClick={this.HandleMyBookingClick}>My Bookings</div>
                             <div className="nav-item nav-link" onClick={this.HandleLogoutClick}>Logout</div>

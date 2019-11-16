@@ -11,10 +11,17 @@
 }
 .login_form_wrapper form
 {
-    border : 1px solid #bbb;
     padding: 1.5em;
+    background-color: #7070700d;
 }
 .login_form_wrapper .form_heading
 {
     padding: 0.5em 0;
+}
+
+@media only screen and (max-width: 500px) {
+    .login_form_wrapper
+    {
+        width: 100%;
+    }
 }

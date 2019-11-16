@@ -1,6 +1,7 @@
 .mybooking_container
 {
-    padding-top: 10em;
+    padding-bottom: 5em;
+    padding-top: 5em;
 }
 .mybooking_container .booking_wrapper
 {
@@ -46,9 +47,12 @@
 }
 .booking_wrapper .cancel_booking
 {
-    color: #c33;
+    color: #fff;
     font-weight: 600;
     cursor: pointer;
+    background-color: #ff6060;
+    padding: 0.5em 1.1em;
+    border-radius: 4px;
 }
 .empty_bookings
 {
@@ -56,3 +60,12 @@
     font-weight: 300;
     text-align: center;
 }
+
+@media only screen and (max-width: 500px) {
+    .booking_wrapper .cancel_booking
+    {
+        margin-top: 1em;
+    }
+}
+
+

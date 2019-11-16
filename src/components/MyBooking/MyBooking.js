@@ -6,6 +6,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import './style.css';
 import Cookies from "universal-cookie";
 import 'izitoast/dist/css/iziToast.min.css';
+import iziToast from "izitoast";
 
 var moment = require('moment');
 
@@ -76,12 +77,10 @@ class MyBooking extends React.Component{
            <div>
                <nav className="navbar navbar-expand-lg navbar-light bg-light">
                    <span className="navbar-brand mb-0 h1">BookingZone</span>
-                   <button className="navbar-toggler" type="button" data-toggle="collapse"
-                           data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                           aria-expanded="false" aria-label="Toggle navigation">
+                   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                        <span className="navbar-toggler-icon"></span>
                    </button>
-                   <div className="collapse navbar-collapse justify-content-end">
+                   <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                        <div className="navbar-nav">
                            <div className="nav-item nav-link" onClick={this.HandleNewBookingClick}>New Booking</div>
                            <div className="nav-item nav-link" onClick={this.HandleLogoutClick}>Logout</div>
@@ -195,14 +194,14 @@ class CancelBooking extends React.Component
                 {
                     label: 'Yes',
                     onClick: () => {
-                        console.log(this.props.booking_id);
                         axios.post('http://localhost:3000/bookings/cancel/',{
                             'booking_id':this.props.booking_id
                         }).then((response) => {
                             let data = response.data;
                             if(data.status===1)
                             {
-                                alert(data.msg);
+                                // alert(data.msg);
+                                show_toast(data.msg,'','success');
                                 //todo : find a more effeient way to refresh page
                                 window.location.reload();
                             }
@@ -227,7 +226,7 @@ class CancelBooking extends React.Component
     {
         return(
         <div className="cancel_booking float-right" onClick={this.HandleCancelClick}>
-            x Cancel Booking
+            Cancel Booking
         </div>
     )}
 }
@@ -241,5 +240,26 @@ function CancelRequired(isPast,booking_id)
     }
 }
 
+/* showing easy toast function */
+function show_toast(msg,title,type)
+{
+    let backgroundColor,color;
+    if(type==="fail")
+    {
+        backgroundColor= 'red';
+        color= 'white';
+    }
+    if(type==="success")
+    {
+        backgroundColor= 'green';
+    }
+    iziToast.show({
+        title: title,
+        message: msg,
+        backgroundColor: backgroundColor,
+        position: "topCenter",
+        color: color
+    });
+}
 
 export default MyBooking;
