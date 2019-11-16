@@ -166,7 +166,7 @@ class Dashboard extends React.Component
                 </nav>
                 <div className="dashboard_container container">
 
-                    <h3 className="intro_msg">What would you like to book today?</h3>
+                    <h3 className="intro_msg display-4">What would you like to book today?</h3>
 
                     <div className="booking_wrapper">
                         <form onSubmit={this.HandleSubmit}>
