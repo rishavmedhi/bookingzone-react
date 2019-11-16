@@ -63,12 +63,14 @@ class Dashboard extends React.Component
         let currenttime = Math.floor((new Date().getTime())/1000);
         if(starttime>endtime)
         {
-            alert('The start time is after end time. Please select a proper start time');
+            // alert('The start time is after end time. Please select a proper start time');
+            show_toast('The start time is after end time. Please select a proper start time','','fail')
             return;
         }
         if(starttime === endtime)
         {
-            alert('Start time cannot be same with end time. Please select a proper start and end time');
+            // alert('Start time cannot be same with end time. Please select a proper start and end time');
+            show_toast('Start time cannot be same with end time. Please select a proper start and end time','','fail')
         }
         let period = (endtime - starttime)+" hrs";
 
@@ -81,9 +83,10 @@ class Dashboard extends React.Component
         {
             // alert('Please select day as today or some upcoming day');
 
-            iziToast.show({
-                message: 'Please select day as today or some upcoming day'
-            });
+            // iziToast.show({
+            //     message: 'Please select day as today or some upcoming day'
+            // });
+            show_toast('Please select day as today or some upcoming day','','fail');
             return;
         }
         let uid = this.state.uid;
@@ -101,16 +104,18 @@ class Dashboard extends React.Component
             if(data.status===1)
             {
                 // alert(data.msg);
-                iziToast.show({
-                    message: data.msg
-                });
+                // iziToast.show({
+                //     message: data.msg
+                // });
+                show_toast(data.msg,'','success');
             }
             if (data.status===0)
             {
                 // alert(data.msg);
-                iziToast.show({
-                    message: data.msg
-                });
+                // iziToast.show({
+                //     message: data.msg
+                // });
+                show_toast(data.msg,'','fail');
             }
         }).catch(function(e){
             console.log(e);
@@ -341,6 +346,28 @@ function getFormattedDate()
     }
     today = yyyy + '-' + mm + '-' + dd;
    return today;
+}
+
+/* showing easy toast function */
+function show_toast(msg,title,type)
+{
+    let backgroundColor,color;
+    if(type==="fail")
+    {
+        backgroundColor= 'red';
+        color= 'white';
+    }
+    if(type==="success")
+    {
+        backgroundColor= 'green';
+    }
+    iziToast.show({
+       title: title,
+        message: msg,
+        backgroundColor: backgroundColor,
+        position: "topCenter",
+        color: color
+    });
 }
 
 export default Dashboard;
