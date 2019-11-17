@@ -119,7 +119,7 @@ function UpcomingBooking(props)
     for(let i=0;i<props.bookings.length;i++)
     {
         let booking = props.bookings[i];
-        if(booking.starttime>currenttime || (booking.starttime<=currenttime && booking.endtime>currenttime))
+        if(booking.starttime>currenttime)
         {
             rows.push(<Booking past="" booking_id={booking._id} event={booking.event} day={moment.unix(parseInt(booking.starttime)).format('Do MMM YYYY')} starttime={moment.unix(parseInt(booking.starttime)).format('hh:mm A')} endtime={moment.unix(parseInt(booking.endtime)).format('hh:mm A')}/>)
         }

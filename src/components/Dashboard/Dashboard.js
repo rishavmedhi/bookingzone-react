@@ -57,71 +57,76 @@ class Dashboard extends React.Component
     /* Handling on submit action of the form */
     HandleSubmit(e){
         e.preventDefault();
-        /* preparing the data for ajax call */
-        /* validation if all is correct */
-        let starttime = this.state.starttime;
-        let endtime = this.state.endtime;
-        let currenttime = Math.floor((new Date().getTime())/1000);
-        if(starttime>endtime)
+        if(typeof this.state.starttime!== "undefined" && typeof this.state.endtime!== "undefined" && typeof this.state.booking_date!== "undefined" && this.state.booking_date.length>0)
         {
-            // alert('The start time is after end time. Please select a proper start time');
-            show_toast('The start time is after end time. Please select a proper start time','','fail');
-            return;
-        }
-        if(starttime === endtime)
-        {
-            // alert('Start time cannot be same with end time. Please select a proper start and end time');
-            show_toast('Start time cannot be same with end time. Please select a proper start and end time','','fail');
-            return;
-        }
-        let period = (endtime - starttime)+" hrs";
-
-        let booking_date = new Date(this.state.booking_date);
-        let starttime_ts = (booking_date.setHours(starttime,0,0,0))/1000;
-        let endtime_ts = (booking_date.setHours(endtime,0,0,0))/1000;
-
-        /* checking if booking is not for a old day */
-        if(currenttime>starttime_ts || currenttime>endtime_ts)
-        {
-            // alert('Please select day as today or some upcoming day');
-
-            // iziToast.show({
-            //     message: 'Please select day as today or some upcoming day'
-            // });
-            show_toast('Please select day as today or some upcoming day','','fail');
-            return;
-        }
-        let uid = this.state.uid;
-        let event = this.state.event;
-
-        /* Making API call for creating new booking */
-        axios.post(base_url+'bookings/new/',{
-            uid : uid,
-            starttime: starttime_ts,
-            endtime: endtime_ts,
-            event: event,
-            period: period
-        }).then((response) => {
-            let data = response.data;
-            if(data.status===1)
+                /* preparing the data for ajax call */
+            /* validation if all is correct */
+            let starttime = this.state.starttime;
+            let endtime = this.state.endtime;
+            let currenttime = Math.floor((new Date().getTime())/1000);
+            if(starttime>endtime)
             {
-                // alert(data.msg);
-                // iziToast.show({
-                //     message: data.msg
-                // });
-                show_toast(data.msg,'','success');
+                // alert('The start time is after end time. Please select a proper start time');
+                show_toast('The start time is after end time. Please select a proper start time','','fail');
+                return;
             }
-            if (data.status===0)
+            if(starttime === endtime)
             {
-                // alert(data.msg);
-                // iziToast.show({
-                //     message: data.msg
-                // });
-                show_toast(data.msg,'','fail');
+                // alert('Start time cannot be same with end time. Please select a proper start and end time');
+                show_toast('Start time cannot be same with end time. Please select a proper start and end time','','fail');
+                return;
             }
-        }).catch(function(e){
-            console.log(e);
-        });
+            let period = (endtime - starttime)+" hrs";
+
+            let booking_date = new Date(this.state.booking_date);
+            let starttime_ts = (booking_date.setHours(starttime,0,0,0))/1000;
+            let endtime_ts = (booking_date.setHours(endtime,0,0,0))/1000;
+
+            /* checking if booking is not for a old day */
+            if(currenttime>starttime_ts || currenttime>endtime_ts)
+            {
+                // alert('Please select day as today or some upcoming day');
+
+                // iziToast.show({
+                //     message: 'Please select day as today or some upcoming day'
+                // });
+                show_toast('Please select day as today or some upcoming day','','fail');
+                return;
+            }
+            let uid = this.state.uid;
+            let event = this.state.event;
+
+            /* Making API call for creating new booking */
+            axios.post(base_url+'bookings/new/',{
+                uid : uid,
+                starttime: starttime_ts,
+                endtime: endtime_ts,
+                event: event,
+                period: period
+            }).then((response) => {
+                let data = response.data;
+                if(data.status===1)
+                {
+                    // alert(data.msg);
+                    // iziToast.show({
+                    //     message: data.msg
+                    // });
+                    show_toast(data.msg,'','success');
+                }
+                if (data.status===0)
+                {
+                    // alert(data.msg);
+                    // iziToast.show({
+                    //     message: data.msg
+                    // });
+                    show_toast(data.msg,'','fail');
+                }
+            }).catch(function(e){
+                console.log(e);
+            });
+        }
+        else
+            show_toast('Please select proper date and timings','','fail');
 
     }
 
