@@ -72,6 +72,7 @@ class Dashboard extends React.Component
         {
             // alert('Start time cannot be same with end time. Please select a proper start and end time');
             show_toast('Start time cannot be same with end time. Please select a proper start and end time','','fail');
+            return;
         }
         let period = (endtime - starttime)+" hrs";
 
