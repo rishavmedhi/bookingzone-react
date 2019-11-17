@@ -41,11 +41,11 @@ class Dashboard extends React.Component
     }
     /* for detecting change of the startime selector */
     HandleStartTimeChange(starttime){
-        this.setState({starttime : starttime});
+        this.setState({starttime : parseInt(starttime)});
     }
     /* for detecting change of the startime selector */
     HandleEndTimeChange(endtime){
-        this.setState({endtime : endtime});
+        this.setState({endtime : parseInt(endtime)});
     }
     /* handling click of My Booking button */
     HandleMyBookingClick(e){
