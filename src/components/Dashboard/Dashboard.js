@@ -3,7 +3,6 @@ import { Redirect } from 'react-router-dom'
 import './style.css'
 import axios from 'axios';
 import Cookies from "universal-cookie";
-import iziToast from "izitoast";
 import 'izitoast/dist/css/iziToast.min.css';
 import {base_url, show_toast} from "../../utilities/utilities";
 
@@ -311,7 +310,7 @@ class EndTime extends React.Component
 
         for(let i=10;i<=22;i++) {
             rows.push(
-                <TimeRow counter={i} am_pm={i>=12?'P.M.':'A.M.'}/>
+                <TimeRow counter={i}/>
             );
         }
 
@@ -329,7 +328,7 @@ class EndTime extends React.Component
 function TimeRow(props)
 {
     return(
-        <option value={props.counter} key={props.counter}>{props.counter}:00 {props.am_pm}</option>
+        <option value={props.counter} key={props.counter}>{props.counter}:00 </option>
     )
 }
 
