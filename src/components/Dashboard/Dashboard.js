@@ -3,9 +3,8 @@ import { Redirect } from 'react-router-dom'
 import './style.css'
 import axios from 'axios';
 import Cookies from "universal-cookie";
-import iziToast from "izitoast";
 import 'izitoast/dist/css/iziToast.min.css';
-import {show_toast} from "../../utilities/utilities";
+import {base_url, base_web_url, show_toast} from "../../utilities/utilities";
 
 class Dashboard extends React.Component
 {
@@ -42,11 +41,11 @@ class Dashboard extends React.Component
     }
     /* for detecting change of the startime selector */
     HandleStartTimeChange(starttime){
-        this.setState({starttime : starttime});
+        this.setState({starttime : parseInt(starttime)});
     }
     /* for detecting change of the startime selector */
     HandleEndTimeChange(endtime){
-        this.setState({endtime : endtime});
+        this.setState({endtime : parseInt(endtime)});
     }
     /* handling click of My Booking button */
     HandleMyBookingClick(e){
@@ -57,70 +56,79 @@ class Dashboard extends React.Component
     /* Handling on submit action of the form */
     HandleSubmit(e){
         e.preventDefault();
-        /* preparing the data for ajax call */
-        /* validation if all is correct */
-        let starttime = this.state.starttime;
-        let endtime = this.state.endtime;
-        let currenttime = Math.floor((new Date().getTime())/1000);
-        if(starttime>endtime)
+        if(typeof this.state.starttime!== "undefined" && typeof this.state.endtime!== "undefined" && typeof this.state.booking_date!== "undefined" && this.state.booking_date.length>0)
         {
-            // alert('The start time is after end time. Please select a proper start time');
-            show_toast('The start time is after end time. Please select a proper start time','','fail');
-            return;
-        }
-        if(starttime === endtime)
-        {
-            // alert('Start time cannot be same with end time. Please select a proper start and end time');
-            show_toast('Start time cannot be same with end time. Please select a proper start and end time','','fail');
-        }
-        let period = (endtime - starttime)+" hrs";
-
-        let booking_date = new Date(this.state.booking_date);
-        let starttime_ts = (booking_date.setHours(starttime,0,0,0))/1000;
-        let endtime_ts = (booking_date.setHours(endtime,0,0,0))/1000;
-
-        /* checking if booking is not for a old day */
-        if(currenttime>starttime_ts || currenttime>endtime_ts)
-        {
-            // alert('Please select day as today or some upcoming day');
-
-            // iziToast.show({
-            //     message: 'Please select day as today or some upcoming day'
-            // });
-            show_toast('Please select day as today or some upcoming day','','fail');
-            return;
-        }
-        let uid = this.state.uid;
-        let event = this.state.event;
-
-        /* Making API call for creating new booking */
-        axios.post('http://localhost:3000/bookings/new/',{
-            uid : uid,
-            starttime: starttime_ts,
-            endtime: endtime_ts,
-            event: event,
-            period: period
-        }).then((response) => {
-            let data = response.data;
-            if(data.status===1)
+                /* preparing the data for ajax call */
+            /* validation if all is correct */
+            let starttime = this.state.starttime;
+            let endtime = this.state.endtime;
+            let currenttime = Math.floor((new Date().getTime())/1000);
+            if(starttime>endtime)
             {
-                // alert(data.msg);
-                // iziToast.show({
-                //     message: data.msg
-                // });
-                show_toast(data.msg,'','success');
+                // alert('The start time is after end time. Please select a proper start time');
+                show_toast('The start time is after end time. Please select a proper start time','','fail');
+                return;
             }
-            if (data.status===0)
+            if(starttime === endtime)
             {
-                // alert(data.msg);
-                // iziToast.show({
-                //     message: data.msg
-                // });
-                show_toast(data.msg,'','fail');
+                // alert('Start time cannot be same with end time. Please select a proper start and end time');
+                show_toast('Start time cannot be same with end time. Please select a proper start and end time','','fail');
+                return;
             }
-        }).catch(function(e){
-            console.log(e);
-        });
+            let period = (endtime - starttime)+" hrs";
+
+            let booking_date = new Date(this.state.booking_date);
+            let starttime_ts = (booking_date.setHours(starttime,0,0,0))/1000;
+            let endtime_ts = (booking_date.setHours(endtime,0,0,0))/1000;
+
+            /* checking if booking is not for a old day */
+            if(currenttime>starttime_ts || currenttime>endtime_ts)
+            {
+                // alert('Please select day as today or some upcoming day');
+
+                // iziToast.show({
+                //     message: 'Please select day as today or some upcoming day'
+                // });
+                show_toast('Please select day as today or some upcoming day','','fail');
+                return;
+            }
+            let uid = this.state.uid;
+            let event = this.state.event;
+
+            /* Making API call for creating new booking */
+            axios.post(base_url+'bookings/new/',{
+                uid : uid,
+                starttime: starttime_ts,
+                endtime: endtime_ts,
+                event: event,
+                period: period
+            }).then((response) => {
+                let data = response.data;
+                if(data.status===1)
+                {
+                    // alert(data.msg);
+                    // iziToast.show({
+                    //     message: data.msg
+                    // });
+                    show_toast(data.msg,'','success');
+                    setTimeout(()=> {
+                        window.location.href = base_web_url+"dashboard/my-booking";
+                    },2000)
+                }
+                if (data.status===0)
+                {
+                    // alert(data.msg);
+                    // iziToast.show({
+                    //     message: data.msg
+                    // });
+                    show_toast(data.msg,'','fail');
+                }
+            }).catch(function(e){
+                console.log(e);
+            });
+        }
+        else
+            show_toast('Please select proper date and timings','','fail');
 
     }
 
@@ -128,7 +136,7 @@ class Dashboard extends React.Component
     HandleLogoutClick(e)
     {
         const cookie = new Cookies();
-        cookie.remove('uid');
+        cookie.remove('uid',{ path: '/' });
 
         this.setState({
             uid: ""
@@ -151,7 +159,7 @@ class Dashboard extends React.Component
         return(
             <div>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                    <span className="navbar-brand mb-0 h1">BookingZone</span>
+                    <a className="navbar-brand mb-0 h1" href="dashboard/">BookingZone</a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -166,7 +174,7 @@ class Dashboard extends React.Component
                 </nav>
                 <div className="dashboard_container container">
 
-                    <h3 className="intro_msg">What would you like to book today?</h3>
+                    <h3 className="intro_msg display-4">What would you like to book today?</h3>
 
                     <div className="booking_wrapper">
                         <form onSubmit={this.HandleSubmit}>
@@ -305,7 +313,7 @@ class EndTime extends React.Component
 
         for(let i=10;i<=22;i++) {
             rows.push(
-                <TimeRow counter={i} am_pm={i>=12?'P.M.':'A.M.'}/>
+                <TimeRow counter={i}/>
             );
         }
 
@@ -323,7 +331,7 @@ class EndTime extends React.Component
 function TimeRow(props)
 {
     return(
-        <option value={props.counter} key={props.counter}>{props.counter}:00 {props.am_pm}</option>
+        <option value={props.counter} key={props.counter}>{props.counter}:00 </option>
     )
 }
 

@@ -6,7 +6,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import './style.css';
 import Cookies from "universal-cookie";
 import 'izitoast/dist/css/iziToast.min.css';
-import {show_toast} from "../../utilities/utilities";
+import {base_url, show_toast} from "../../utilities/utilities";
 
 var moment = require('moment');
 
@@ -19,7 +19,8 @@ class MyBooking extends React.Component{
         this.state ={
             uid : cookie.get('uid'),
             redirectToDashboard : false,
-            bookings: []
+            bookings: [],
+            isLoading: true
         };
 
         this.HandleNewBookingClick = this.HandleNewBookingClick.bind(this);
@@ -35,12 +36,13 @@ class MyBooking extends React.Component{
 
     /* fetching user active booking before component mounting */
     componentDidMount() {
-        axios.post('http://localhost:3000/bookings/user/',{
+        axios.post(base_url+'bookings/user/',{
             uid: this.state.uid
         })
             .then((response) => {
                 // handle success
-                this.setState({bookings: response.data.bookings});
+                this.setState({bookings: response.data.bookings,
+                isLoading: false});
                 console.log(response);
             })
             .catch(function (error) {
@@ -53,7 +55,7 @@ class MyBooking extends React.Component{
     HandleLogoutClick(e)
     {
         const cookie = new Cookies();
-        cookie.remove('uid');
+        cookie.remove('uid',{ path: '/' });
 
         this.setState({
             uid: ""
@@ -66,6 +68,13 @@ class MyBooking extends React.Component{
                 <Redirect to='/dashboard' />
             );
 
+        if(this.state.isLoading)
+        {
+            return(
+                <Loader/>
+            )
+        }
+
         if(typeof this.state.uid=== "undefined" || this.state.uid=== "")
         {
             return(
@@ -76,7 +85,7 @@ class MyBooking extends React.Component{
         return(
            <div>
                <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                   <span className="navbar-brand mb-0 h1">BookingZone</span>
+                   <a className="navbar-brand mb-0 h1" href="dashboard/">BookingZone</a>
                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                        <span className="navbar-toggler-icon"></span>
                    </button>
@@ -87,9 +96,7 @@ class MyBooking extends React.Component{
                        </div>
                    </div>
                </nav>
-
-
-
+               <Loader isLoading={this.state.isLoading}/>
                {
                    this.state.bookings.length?
                    <div className="mybooking_container container">
@@ -119,7 +126,7 @@ function UpcomingBooking(props)
     for(let i=0;i<props.bookings.length;i++)
     {
         let booking = props.bookings[i];
-        if(booking.starttime>currenttime || (booking.starttime<=currenttime && booking.endtime>currenttime))
+        if(booking.starttime>currenttime)
         {
             rows.push(<Booking past="" booking_id={booking._id} event={booking.event} day={moment.unix(parseInt(booking.starttime)).format('Do MMM YYYY')} starttime={moment.unix(parseInt(booking.starttime)).format('hh:mm A')} endtime={moment.unix(parseInt(booking.endtime)).format('hh:mm A')}/>)
         }
@@ -194,7 +201,7 @@ class CancelBooking extends React.Component
                 {
                     label: 'Yes',
                     onClick: () => {
-                        axios.post('http://localhost:3000/bookings/cancel/',{
+                        axios.post(base_url+'bookings/cancel/',{
                             'booking_id':this.props.booking_id
                         }).then((response) => {
                             let data = response.data;
@@ -238,6 +245,19 @@ function CancelRequired(isPast,booking_id)
             <CancelBooking booking_id={booking_id}/>
         )
     }
+}
+
+/**
+ * @return {null}
+ */
+function Loader(props)
+{
+    if(props.isLoading)
+        return(
+            <div className="loader"></div>
+        );
+    else
+        return null;
 }
 
 export default MyBooking;
