@@ -129,7 +129,7 @@ class Dashboard extends React.Component
     HandleLogoutClick(e)
     {
         const cookie = new Cookies();
-        cookie.remove('uid');
+        cookie.remove('uid',{ path: '/' });
 
         this.setState({
             uid: ""
