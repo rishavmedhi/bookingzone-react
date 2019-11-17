@@ -1,8 +1,12 @@
 /* showing easy toast function */
 import iziToast from "izitoast";
 
-// const base_url = "https://bookingzone.herokuapp.com/api/";
-export const base_url = "http://localhost:3000/api/";
+export const base_url = "https://bookingzone.herokuapp.com/api/";
+// export const base_url = "http://localhost:3000/api/";
+
+export const base_web_url = "https://bookingzone.herokuapp.com/";
+// export const base_web_url = "http://localhost:3001/";
+
 
 export function show_toast(msg, title, type)
 {
@@ -20,6 +24,7 @@ export function show_toast(msg, title, type)
         title: title,
         message: msg,
         backgroundColor: backgroundColor,
-        position: "topCenter"
+        position: "topCenter",
+        progressBar: false
     });
 }
