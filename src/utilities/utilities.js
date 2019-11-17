@@ -5,6 +5,7 @@ export const base_url = "https://bookingzone.herokuapp.com/api/";
 // export const base_url = "http://localhost:3000/api/";
 
 export const base_web_url = "https://bookingzone.herokuapp.com/";
+// export const base_web_url = "http://localhost:3000/"
 // export const base_web_url = "http://localhost:3001/";
 
 
