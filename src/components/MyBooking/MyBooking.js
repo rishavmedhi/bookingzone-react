@@ -19,7 +19,8 @@ class MyBooking extends React.Component{
         this.state ={
             uid : cookie.get('uid'),
             redirectToDashboard : false,
-            bookings: []
+            bookings: [],
+            isLoading: true
         };
 
         this.HandleNewBookingClick = this.HandleNewBookingClick.bind(this);
@@ -40,7 +41,8 @@ class MyBooking extends React.Component{
         })
             .then((response) => {
                 // handle success
-                this.setState({bookings: response.data.bookings});
+                this.setState({bookings: response.data.bookings,
+                isLoading: false});
                 console.log(response);
             })
             .catch(function (error) {
@@ -66,6 +68,13 @@ class MyBooking extends React.Component{
                 <Redirect to='/dashboard' />
             );
 
+        if(this.state.isLoading)
+        {
+            return(
+                <Loader/>
+            )
+        }
+
         if(typeof this.state.uid=== "undefined" || this.state.uid=== "")
         {
             return(
@@ -76,7 +85,7 @@ class MyBooking extends React.Component{
         return(
            <div>
                <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                   <span className="navbar-brand mb-0 h1">BookingZone</span>
+                   <a className="navbar-brand mb-0 h1" href="dashboard/">BookingZone</a>
                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                        <span className="navbar-toggler-icon"></span>
                    </button>
@@ -87,9 +96,7 @@ class MyBooking extends React.Component{
                        </div>
                    </div>
                </nav>
-
-
-
+               <Loader isLoading={this.state.isLoading}/>
                {
                    this.state.bookings.length?
                    <div className="mybooking_container container">
@@ -238,6 +245,19 @@ function CancelRequired(isPast,booking_id)
             <CancelBooking booking_id={booking_id}/>
         )
     }
+}
+
+/**
+ * @return {null}
+ */
+function Loader(props)
+{
+    if(props.isLoading)
+        return(
+            <div className="loader"></div>
+        );
+    else
+        return null;
 }
 
 export default MyBooking;

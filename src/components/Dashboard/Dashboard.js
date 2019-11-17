@@ -4,7 +4,7 @@ import './style.css'
 import axios from 'axios';
 import Cookies from "universal-cookie";
 import 'izitoast/dist/css/iziToast.min.css';
-import {base_url, show_toast} from "../../utilities/utilities";
+import {base_url, base_web_url, show_toast} from "../../utilities/utilities";
 
 class Dashboard extends React.Component
 {
@@ -111,6 +111,9 @@ class Dashboard extends React.Component
                     //     message: data.msg
                     // });
                     show_toast(data.msg,'','success');
+                    setTimeout(()=> {
+                        window.location.href = base_web_url+"dashboard/my-booking";
+                    },2000)
                 }
                 if (data.status===0)
                 {
@@ -156,7 +159,7 @@ class Dashboard extends React.Component
         return(
             <div>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                    <span className="navbar-brand mb-0 h1">BookingZone</span>
+                    <a className="navbar-brand mb-0 h1" href="dashboard/">BookingZone</a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
